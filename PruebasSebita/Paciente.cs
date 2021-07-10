@@ -137,14 +137,12 @@ namespace PruebasSebita{
             return retornoLista;
         }
 
-        public string GetSignos(){
-            string resultado = string.Join(",", this.signos);
-            return resultado;
+        public List<string> GetSignos(){
+            return signos;
         }
 
-        public string GetSintomas(){
-            string resultado = string.Join(",",this.sintomas);
-            return resultado;
+        public List<string> GetSintomas(){
+            return sintomas;
         }
 
     }

@@ -16,19 +16,19 @@ namespace PruebasSebita {
             InicializarSintomatologia();
         }
         public void inicializarEnfermedades() {
-            List<string> auxVarEnfermedades = xlsx.LeerFilaString(1,4);
+            //List<string> auxVarEnfermedades = xlsx.LeerFilaString(1,4);
             List<string> auxNombreEnfermedades = xlsx.LeerFilaString(2, 4);
-            for (int i = 0; i < auxVarEnfermedades.Count; i++) {
-                enfermedades.Add(auxVarEnfermedades[i], new Enfermedad(auxNombreEnfermedades[i]));
+            for (int i = 0; i < auxNombreEnfermedades.Count; i++) {
+                enfermedades.Add(auxNombreEnfermedades[i], new Enfermedad(auxNombreEnfermedades[i]));
             }
         }
 
         public void InicializarSintomatologia() {
-            List<string> auxVarSintomatologia = xlsx.LeerColumnaString(3, 1);
+            //List<string> auxVarSintomatologia = xlsx.LeerColumnaString(3, 1);
             List<string> auxTipoSintomatologia = xlsx.LeerColumnaString(3, 2);
             List<string> auxNombreSintomatologia = xlsx.LeerColumnaString(3, 3);
-            for (int i = 0; i < auxVarSintomatologia.Count; i++) {
-                signos.Add(auxVarSintomatologia[i], new Sintomatologia(auxNombreSintomatologia[i],auxTipoSintomatologia[i]));
+            for (int i = 0; i < auxNombreSintomatologia.Count; i++) {
+                signos.Add(auxNombreSintomatologia[i], new Sintomatologia(auxNombreSintomatologia[i],auxTipoSintomatologia[i]));
             }
             inicializarEnlaces();
         }
@@ -42,13 +42,14 @@ namespace PruebasSebita {
             double valorPeso = 0;
             List<string> varSinto = new List<string>();
             List<string> varEnfe = new List<string>();
-            varSinto = xlsx.LeerColumnaString(fila, 1);
-            varEnfe = xlsx.LeerFilaString(1, columna);
+            varSinto = xlsx.LeerColumnaString(fila, 3);
+            varEnfe = xlsx.LeerFilaString(2, columna);
             for (int i = 0; i < varSinto.Count; i++) {
                 for (int j = 0; j < varEnfe.Count; j++) {
                     valorPeso = xlsx.LeerCeldaDouble(fila, columna);
                     if (valorPeso != 0) {
                         Console.WriteLine(valorPeso);
+                        //Se cayo aca
                         signos[varSinto[i]].AddEnlaces(valorPeso, enfermedades[varEnfe[j]]);
                     }
                     columna++;
@@ -56,14 +57,17 @@ namespace PruebasSebita {
                 columna = 4;
                 fila++;
             }
-            signos["S9"].Encontrado();
-            signos["S10"].Encontrado();
+            //array[i] => valor
+            //Dict[llave] => valor
+            signos["Tos"].Encontrado();
+            signos["Fatiga"].Encontrado();
         }
 
         public void imprimirEnfermedades() {
             foreach (var entry in enfermedades) {
                 //System.Console.WriteLine(entry.Key + " : " + entry.Value.ToString());
-                System.Console.WriteLine(entry.Key + " : " + entry.Value.ToString());
+                //System.Console.WriteLine(entry.Key + " : " + entry.Value.ToString());
+                System.Console.WriteLine(entry.Value.ToString());
 
             }
         }
