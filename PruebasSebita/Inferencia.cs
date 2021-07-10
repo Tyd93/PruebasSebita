@@ -29,8 +29,8 @@ namespace PruebasSebita {
             //preguntar si la enfermedad ya esta
         }
 
-        public List<Enfermedad> MatchSintomas(List<string> sintomasPaciente) {
-            List<Enfermedad> enfermedadesHipotesis = new List<Enfermedad>();
+        public void MatchSintomas(List<string> sintomasPaciente) {
+            //List<Enfermedad> enfermedadesHipotesis = new List<Enfermedad>();
             //Vamos a usar el conocimiento\
             //Tenemos nombres de sintomas.
             //Queremos obtener los sintomas(objeto) con sus enlaces
@@ -39,8 +39,16 @@ namespace PruebasSebita {
             for (int i = 0; i < sintomasPaciente.Count; i++) {
                 Sintomatologia auxAuxSintoma = auxSintomas[sintomasPaciente[i]];
                 //anadir enfermedades a la lista segun conexiones
+                List<Enlace> enlaces = auxAuxSintoma.GetEnlaces();
+                //Iterar enlaces, para construir y/o sumar a enfermedades.
+                for (int j = 0; j < enlaces.Count; j++) {
+                    //if para preguntar si la enfermedad no exister
+                    
+                    //Esto lo copia como REFERENCIA, OJO!!
+                    enfermedades.Add(enlaces[j].getEnfermedad());
+                    enfermedades[j].AddPertenencia(enlaces[j].getPeso());
+                }
             }
-            return enfermedadesHipotesis;
         }
 
         public void propagarSignos() {
