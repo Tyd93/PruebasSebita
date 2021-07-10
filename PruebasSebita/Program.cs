@@ -17,7 +17,7 @@ namespace PruebasSebita {
             //inferencia.propagarSignos();
             inferencia.Propagacion();
             Console.WriteLine("\n\n");
-            inferencia.GetConocimiento().imprimirEnfermedades();
+            //inferencia.GetConocimiento().imprimirEnfermedades();
             Console.WriteLine("\n\n");
             inferencia.ImprimirEnfermedades();
             //Console.WriteLine(1!=0.0);

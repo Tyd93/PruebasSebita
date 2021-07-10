@@ -5,19 +5,19 @@ using System.Text;
 namespace PruebasSebita {
     class Inferencia {
         Conocimiento red;
-        List<Enfermedad> enfermedades;
+        Dictionary<string, Enfermedad> enfermedades;
         Paciente pacienteActual;
 
         //Constructor de prueba 
         public Inferencia() {
             red = new Conocimiento();
-            enfermedades = new List<Enfermedad>();
+            enfermedades =new Dictionary<string, Enfermedad>();
 
         }
 
         public Inferencia(Paciente pacienteActual) {
             red = new Conocimiento();
-            enfermedades = new List<Enfermedad>();
+            enfermedades = new Dictionary<string, Enfermedad>();
             this.pacienteActual = pacienteActual;
         }
 
@@ -31,9 +31,21 @@ namespace PruebasSebita {
             //preguntar si la enfermedad ya esta
         }
 
-        public void ImprimirEnfermedades(){
-            for (int i=0; i<enfermedades.Count;i++) {
-                Console.WriteLine("\nenfermedad " + i+1 + " es " + enfermedades[i]);
+        /*
+        public void ImprimirEnfermedades() {
+            for (int i = 1; i <= enfermedades.Count; i++) {
+                Console.WriteLine("\nenfermedad " + i + " es " + enfermedades[i-1]);
+            }
+            //Imprimir cuantas enfermedades hay
+            Console.WriteLine(enfermedades.Count);
+        }
+        */
+        public void ImprimirEnfermedades() {
+            foreach (var entry in enfermedades) {
+                //System.Console.WriteLine(entry.Key + " : " + entry.Value.ToString());
+                //System.Console.WriteLine(entry.Key + " : " + entry.Value.ToString());
+                System.Console.WriteLine(entry.Value.ToString());
+
             }
         }
 
@@ -52,11 +64,17 @@ namespace PruebasSebita {
                 for (int j = 0; j < enlaces.Count; j++) {
                     //if para preguntar si la enfermedad no exister
                     //Esto lo copia como REFERENCIA, OJO!!
-                    if (enfermedades.Contains(enlaces[j].getEnfermedad())){
-                        enfermedades[j].AddPertenencia(enfermedades[j].GetPertenencia() + enlaces[j].getPeso());
+                    if (enfermedades.ContainsKey(enlaces[j].getEnfermedad().GetNombre())){
+                        //Sumar a la enfermedad
+                        //PERO A LA ENFERMEDAD EN ESPECIFICO
+                        //enfermedades[j].AddPertenencia(enlaces[j].getPeso());
+                        enfermedades[enlaces[j].getEnfermedad().GetNombre()].AddPertenencia(enlaces[j].getPeso());
                     }
                     else {
-                        enfermedades.Add(enlaces[j].getEnfermedad());
+                        enfermedades.Add(enlaces[j].getEnfermedad().GetNombre(), enlaces[j].getEnfermedad());
+                        enfermedades[enlaces[j].getEnfermedad().GetNombre()].AddPertenencia(enlaces[j].getPeso());
+                        //enfermedades.Add(enlaces[j].getEnfermedad());
+                        //enfermedades.Ins(enlaces[j].getEnfermedad());
                     }        
                 }
 
