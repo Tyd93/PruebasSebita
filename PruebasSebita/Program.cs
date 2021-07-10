@@ -6,10 +6,20 @@ namespace PruebasSebita {
             Console.WriteLine("Hello World!");
             //PruebaRed redPrueba1 = new PruebaRed();
             //redPrueba1.imprimirEnfermedades();
-            Inferencia inferencia = new Inferencia();
+            Paciente paciente = new Paciente();
+            paciente.SetSintomas("Adinamia");
+            paciente.SetSintomas("Cefalea");
+            paciente.SetSintomas("Disnea");
+
+            Inferencia inferencia = new Inferencia(paciente);
             inferencia.GetConocimiento().imprimirEnfermedades();
-            inferencia.propagarSignos();
+            Console.WriteLine("\n\n");
+            //inferencia.propagarSignos();
+            inferencia.Propagacion();
+            Console.WriteLine("\n\n");
             inferencia.GetConocimiento().imprimirEnfermedades();
+            Console.WriteLine("\n\n");
+            inferencia.ImprimirEnfermedades();
             //Console.WriteLine(1!=0.0);
         }
     }

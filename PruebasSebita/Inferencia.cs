@@ -5,7 +5,6 @@ using System.Text;
 namespace PruebasSebita {
     class Inferencia {
         Conocimiento red;
-        //Lista posibles enfermedades
         List<Enfermedad> enfermedades;
         Paciente pacienteActual;
 
@@ -13,6 +12,7 @@ namespace PruebasSebita {
         public Inferencia() {
             red = new Conocimiento();
             enfermedades = new List<Enfermedad>();
+
         }
 
         public Inferencia(Paciente pacienteActual) {
@@ -24,10 +24,17 @@ namespace PruebasSebita {
         //propagacion sintomas
         public void Propagacion() {
             List<string> auxSintomas = pacienteActual.GetSintomas();
+            MatchSintomas(auxSintomas);
             //Hacer match con la red de conocimiento
             //E1 S1
             //MatchConocimiento pasarle nombresSintomas retornar Enfermedades -> almacenando 
             //preguntar si la enfermedad ya esta
+        }
+
+        public void ImprimirEnfermedades(){
+            for (int i=0; i<enfermedades.Count;i++) {
+                Console.WriteLine("\nenfermedad " + i+1 + " es " + enfermedades[i]);
+            }
         }
 
         public void MatchSintomas(List<string> sintomasPaciente) {
@@ -44,11 +51,15 @@ namespace PruebasSebita {
                 //Iterar enlaces, para construir y/o sumar a enfermedades.
                 for (int j = 0; j < enlaces.Count; j++) {
                     //if para preguntar si la enfermedad no exister
-                    
                     //Esto lo copia como REFERENCIA, OJO!!
-                    enfermedades.Add(enlaces[j].getEnfermedad());
-                    enfermedades[j].AddPertenencia(enlaces[j].getPeso());
+                    if (enfermedades.Contains(enlaces[j].getEnfermedad())){
+                        enfermedades[j].AddPertenencia(enfermedades[j].GetPertenencia() + enlaces[j].getPeso());
+                    }
+                    else {
+                        enfermedades.Add(enlaces[j].getEnfermedad());
+                    }        
                 }
+
             }
         }
 
