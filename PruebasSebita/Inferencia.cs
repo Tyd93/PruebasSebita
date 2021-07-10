@@ -5,6 +5,7 @@ using System.Text;
 namespace PruebasSebita {
     class Inferencia {
         Conocimiento red;
+        //Lista posibles enfermedades
         List<Enfermedad> enfermedades;
         Paciente pacienteActual;
 
